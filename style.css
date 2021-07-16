@@ -1,0 +1,45 @@
+#highScore {
+color: purple;
+Padding: auto;
+font: 14px;
+}
+
+#formatDiv {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 100%;
+height: 100vh;
+}
+
+
+
+#mainContainer {
+border: 5px solid purple;
+height: 500px;
+width: 500px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+justify-content: space-evenly;
+}
+
+
+#mainContainer h1 {
+text-align: center;
+color:purple;
+padding: 10px;
+font-size: 24px;
+}
+
+#mainContainer p {
+text-align: center;
+padding: 10px;
+font-size: 14px;
+}
+
+#mainContainer button {
+text-align: center;
+padding: 10px;
+}
