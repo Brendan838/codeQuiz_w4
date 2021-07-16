@@ -23,8 +23,12 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 justify-content: space-evenly;
+s
 }
 
+.startContent{
+color: red;
+}
 
 #mainContainer h1 {
 text-align: center;
@@ -42,4 +46,8 @@ font-size: 14px;
 #mainContainer button {
 text-align: center;
 padding: 10px;
+}
+
+#questionDiv {
+display: none;
 }

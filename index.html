@@ -10,14 +10,29 @@
   </head>
   <body>
     
-    <nav id = "highScore"> View High Scores </nav>
-    <div id= "formatDiv">
+    <nav id ="highScore"> View High Scores </nav>
+    <div id="formatDiv">
 
       <div id= "mainContainer">
-      <h1>Code Quiz</h1>
-      <p>Try to answer the following questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-      <button type="button" id= "startQuiz" >Start Quiz!</button>
+      <div id=startContent>
+      <h1 >Code Quiz</h1>
+      <p >Try to answer the following questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+      </div>
+ 
+
+      <div id="questionDiv"> 
+      <h1 id="questionPrompt">Question goes here</h1>
+      <ul>
+      <li><button type="button" id="button1">Question</button></li>
+      <li><button type="button" id="button2">Question</button></li>
+      <li><button type="button" id="button3">Question</button></li>
+      <li><button type="button" id="button4">Question</button></li>
+      </ul>
+     
+      </div>
     </div>
+
+    <button type="button" id="startQuiz">Start Quiz!</button>
 
     </div>
 
