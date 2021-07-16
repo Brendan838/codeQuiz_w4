@@ -11,25 +11,33 @@
   <body>
     
     <nav id ="highScore"> View High Scores </nav>
+    <nav id ="timer">Countdown Timer</nav>
     <div id="formatDiv">
 
       <div id= "mainContainer">
       <div id=startContent>
       <h1 >Code Quiz</h1>
-      <p >Try to answer the following questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+      <p >Try to answer the following questions within the time limit. Keep in mind that 
+          incorrect answers will penalize your score/time by ten seconds!
+      </p>
       </div>
  
 
       <div id="questionDiv"> 
       <h1 id="questionPrompt">Question goes here</h1>
       <ul>
-      <li><button type="button" id="button1">Question</button></li>
-      <li><button type="button" id="button2">Question</button></li>
-      <li><button type="button" id="button3">Question</button></li>
-      <li><button type="button" id="button4">Question</button></li>
+      <li><button type="button" id="button1" class=allButton>Question</button></li>
+      <li><button type="button" id="button2" class=allButton>Question</button></li>
+      <li><button type="button" id="button3" class=allButton>Question</button></li>
+      <li><button type="button" id="button4" class=allButton>Question</button></li>
       </ul>
      
       </div>
+
+      <div id= "endScreenDiv">Game Over! </div>
+
+      <div id= "youWin"> Enter your high score!</div>
+
     </div>
 
     <button type="button" id="startQuiz">Start Quiz!</button>

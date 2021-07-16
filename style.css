@@ -23,7 +23,6 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 justify-content: space-evenly;
-s
 }
 
 .startContent{
@@ -49,5 +48,13 @@ padding: 10px;
 }
 
 #questionDiv {
+display: none;
+}
+
+#endScreenDiv {
+display: none;
+}
+
+#youWin {
 display: none;
 }
