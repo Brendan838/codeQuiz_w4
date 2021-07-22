@@ -16,38 +16,51 @@ var initialTimer = 60;
 var timer = document.querySelector("#timer")
 var endScreenDiv = document.querySelector("#endScreenDiv")
 var youWin = document.querySelector("#youWin")
+var stopTimer 
+var scoresList = document.querySelector("#scoresList")
+var initialsValue = document.querySelector("#highScoreInitials");
+var submitForm = document.querySelector("#highScoreSubmit");
+var highScoreList = document.querySelector("#highScoreList")
+var userInfo = {
+user: ["User"],
+score: ["High Score"]
+ }
+var parsedHighScores = JSON.parse(localStorage.getItem("userInfo"))
 
-//Events
-highScore()
-//Start the quiz
-var startQuizButton = startQuiz.addEventListener("click", function () {
-  startContent.style.display = "none";
-  questionDiv.style.display = "block";
 
-  var countdown = setInterval(function(){
-  initialTimer--;
-  timer.innerHTML = initialTimer 
+
+
+
+function countingDown() {
+ initialTimer--;
+ timer.innerHTML = "You have " + initialTimer + " seconds left!"
   if (initialTimer <= 0) {
-  clearInterval(countdown)
+  clearInterval(stopTimer)
   gameOver()
   }
-  },1000
-  )
-  renderQuestion();
+}
+
+//Start the quiz
+var startQuizButton = startQuiz.addEventListener("click", function () {
+  scoresList.style.display = "none";
+  startContent.style.display = "none";
+  questionDiv.style.display = "block";
+  stopTimer = setInterval(countingDown, 1000)
+  renderQuestion(); 
+  document.querySelector("#startQuiz").disabled = true;
+ 
 })
+
+
+
 //answer quiz questions, subtract 20 seconds if a question is wrong, if it is question 5 go to high score screen
 button1.addEventListener("click", function() {
 if (questionArray[questionIndex].answers[0].answerBool === false) {
   initialTimer = initialTimer -20;
 }
-else {
-  initialTimer = initialTimer -0;
-};
-/*
-if (questionIndex = 4 && initialTimer > 0) {
-highScore()
+else if (questionIndex === 4) {
+highScoreScreen()
 }
-*/
 questionIndex++;
 renderQuestion()
 
@@ -57,9 +70,10 @@ button2.addEventListener("click", function() {
 if (questionArray[questionIndex].answers[1].answerBool === false){
   initialTimer = initialTimer -20;
 }
-else {
-  initialTimer = initialTimer -0;
+else if (questionIndex === 4) {
+highScoreScreen()
 }
+
 questionIndex++;
 renderQuestion()
 })
@@ -68,9 +82,10 @@ button3.addEventListener("click", function() {
 if (questionArray[questionIndex].answers[2].answerBool === false){
   initialTimer = initialTimer -20;
 }
-else {
-  initialTimer = initialTimer -0;
+else if (questionIndex === 4) {
+highScoreScreen()
 }
+
 questionIndex++;
 renderQuestion()
 })
@@ -79,34 +94,27 @@ button4.addEventListener("click", function() {
 if ((questionArray[questionIndex].answers[3].answerBool) === false){
   initialTimer = initialTimer -20;
 }
-else {
-  initialTimer = initialTimer -0;
+else if (questionIndex === 4) {
+highScoreScreen()
 }
+
 
 questionIndex++;
 renderQuestion()
 })
 
-//submit high score
-
-//create an event to click on the buttons and when the button is clicked to render the next question
-//how do I create an event listener for multiple elements
-
-//create a view high score event
-
-
-//create an button to submit your high score
-
-
-
 
 //This will render the correct quiz content into the buttons based on the question number given as a parameter
 function renderQuestion() {
+if (questionIndex === 5){
+highScoreScreen()
+}
 questionPrompt.innerHTML = questionArray[questionIndex].question;
 button1.innerHTML = questionArray[questionIndex].answers[0].answer;
 button2.innerHTML = questionArray[questionIndex].answers[1].answer;
 button3.innerHTML = questionArray[questionIndex].answers[2].answer;
 button4.innerHTML = questionArray[questionIndex].answers[3].answer;
+
 }
 
 /*This is my list of questions. It is an array of objects that contain 2 items in each object, a question, 
@@ -167,13 +175,68 @@ endScreenDiv.style.display= "block";
 
 // Screen for entering high score here
 
-function highScore() {
+function highScoreScreen() {
 questionDiv.style.display = "none";
 youWin.style.display = "block"
+clearInterval(stopTimer);
 }
 
 
-//function for decreasing time for each wrong answer
+// button for submitting high score and then going to the high score page
+
+submitForm.addEventListener("click", getInfo)
+	function  getInfo(e) {
+	e.preventDefault();
+  storeLocally(initialsValue.value, initialTimer)
+  youWin.style.display = "none"
+  highScoreList.style.display = "block"
+  printHighScores()
+  }
+
+//get local storage- push high score and user name to those arrays and then save back to local storage
+function storeLocally (user,score) {
+if (parsedHighScores === null || parsedHighScores === undefined){
+localStorage.setItem("userInfo", JSON.stringify(userInfo))
+}
+else {
+parsedHighScores.user.push(user)
+parsedHighScores.score.push(score)
+localStorage.setItem("userInfo", JSON.stringify(parsedHighScores))
+}
+}
 
 
-//function for adding up correct answers
+
+//function for printing high scores
+function printHighScores() {
+  for (var i = 0; i < parsedHighScores.user.length; i++) {
+  var scoreEl = document.createElement("li");
+  scoreEl.innerHTML = parsedHighScores.user[i] + ": " + parsedHighScores.score[i];
+  scoresList.append(scoreEl)
+  }
+}
+/*
+highScore.addEventListener("click", function(){
+startContent.style.display = "none";
+youWin.style.display = "none"
+highScoreList.style.display = "block"
+printHighScores()
+
+})
+*/
+
+
+/* 1. store high score as a variable
+2. store initals as a variable
+3. prepend that information in a created element on the high score screen
+4. store that information in an array
+4. save the array to localStorage
+6. Upon reloading of the web page, have the array reflect the stored initials and scores
+7. Get View HIgh Scores button working
+
+
+print
+
+
+
+*/
