@@ -26,6 +26,7 @@ user: ["User"],
 score: ["High Score"]
  }
 var parsedHighScores = JSON.parse(localStorage.getItem("userInfo"))
+var viewHighScores = document.querySelector("#viewHighScores")
 
 
 
@@ -170,6 +171,10 @@ answers: [
 function gameOver() {
 questionDiv.style.display = "none";
 endScreenDiv.style.display= "block";
+ document.querySelector("#startQuiz").disabled = false;
+startQuiz.textContent = "Play again!"
+startQuiz.addEventListener("click", function(){
+document.location.reload()})
 }
 
 // Screen for entering high score here
@@ -191,6 +196,7 @@ function  getInfo(e) {
   youWin.style.display = "none"
   highScoreList.style.display = "block"
   printHighScores()
+document.querySelector("#viewHighScores").disabled = true;
   }
 
 //get local storage- push high score and user name to those arrays and then save back to local storage
@@ -227,7 +233,15 @@ scoreEl.innerHTML = userInfo.user[i] + ": " + userInfo.score[i];
 scoresList.append(scoreEl)
 }
 }
+ document.querySelector("#startQuiz").disabled = false;
+startQuiz.textContent = "Play again!"
+startQuiz.addEventListener("click", function(){
+document.location.reload()
+})
 }
+
+
+
 
 
 highScore.addEventListener("click", function(){
@@ -236,19 +250,31 @@ document.location.reload()
 
 })
 
+viewHighScores.addEventListener("click",function(){
+startContent.style.display = "none";
+youWin.style.display = "none"
+questionDiv.style.display = "none"
+endScreenDiv.style.display = "none";
+highScoreList.style.display = "block";
+scoresList.style.display = "block";
+viewHighScores.textContent = "Go Back"
+viewHighScores.addEventListener("click", function(){
+document.location.reload()
+})
+if (parsedHighScores){
+for (var i = 0; i < parsedHighScores.user.length; i++) {
+var scoreEl = document.createElement("p");
+scoreEl.innerHTML = parsedHighScores.user[i] + ": " + parsedHighScores.score[i];
+scoresList.append(scoreEl)
+}
+}
+else {
+alert("No high scores currently loaded. Complete quiz to add the first high score!")
+document.location.reload()
+}
+
+})
 
 
-/* 1. store high score as a variable
-2. store initals as a variable
-3. prepend that information in a created element on the high score screen
-4. store that information in an array
-4. save the array to localStorage
-6. Upon reloading of the web page, have the array reflect the stored initials and scores
-7. Get View HIgh Scores button working
 
 
-print
-
-
-
-*/
