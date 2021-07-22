@@ -4,4 +4,4 @@ Hello! This project involved using querySelector, localStorage, and setInterval 
 
 
 
-![Here is a screenshot of my site.](./Assets/codeQuiz.png)
+![Here is a screenshot of my site.](./assets/codeQuiz.png)
