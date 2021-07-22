@@ -48,7 +48,6 @@ var startQuizButton = startQuiz.addEventListener("click", function () {
   stopTimer = setInterval(countingDown, 1000)
   renderQuestion(); 
   document.querySelector("#startQuiz").disabled = true;
- 
 })
 
 
@@ -185,7 +184,8 @@ clearInterval(stopTimer);
 // button for submitting high score and then going to the high score page
 
 submitForm.addEventListener("click", getInfo)
-	function  getInfo(e) {
+	
+function  getInfo(e) {
 	e.preventDefault();
   storeLocally(initialsValue.value, initialTimer)
   youWin.style.display = "none"
@@ -195,13 +195,15 @@ submitForm.addEventListener("click", getInfo)
 
 //get local storage- push high score and user name to those arrays and then save back to local storage
 function storeLocally (user,score) {
-if (parsedHighScores === null || parsedHighScores === undefined){
-localStorage.setItem("userInfo", JSON.stringify(userInfo))
-}
-else {
+if(parsedHighScores){
 parsedHighScores.user.push(user)
 parsedHighScores.score.push(score)
 localStorage.setItem("userInfo", JSON.stringify(parsedHighScores))
+}
+else {
+userInfo.user.push(user)
+userInfo.score.push(score)
+localStorage.setItem("userInfo", JSON.stringify(userInfo))
 }
 }
 
@@ -209,21 +211,31 @@ localStorage.setItem("userInfo", JSON.stringify(parsedHighScores))
 
 //function for printing high scores
 function printHighScores() {
-  for (var i = 0; i < parsedHighScores.user.length; i++) {
-  var scoreEl = document.createElement("li");
-  scoreEl.innerHTML = parsedHighScores.user[i] + ": " + parsedHighScores.score[i];
-  scoresList.append(scoreEl)
-  }
+scoresList.style.display = "block"
+if (parsedHighScores){
+for (var i = 0; i < parsedHighScores.user.length; i++) {
+var scoreEl = document.createElement("p");
+scoreEl.innerHTML = parsedHighScores.user[i] + ": " + parsedHighScores.score[i];
+scoresList.append(scoreEl)
 }
-/*
+}
+else {
+console.log(userInfo)
+for (var i = 0; i < userInfo.user.length; i++) {
+var scoreEl = document.createElement("p");
+scoreEl.innerHTML = userInfo.user[i] + ": " + userInfo.score[i];
+scoresList.append(scoreEl)
+}
+}
+}
+
+
 highScore.addEventListener("click", function(){
-startContent.style.display = "none";
-youWin.style.display = "none"
-highScoreList.style.display = "block"
-printHighScores()
+localStorage.clear()
+document.location.reload()
 
 })
-*/
+
 
 
 /* 1. store high score as a variable
